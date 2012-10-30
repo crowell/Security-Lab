@@ -73,14 +73,14 @@ if(mysql_num_rows($check) == 0)
     //gives error if the password is wrong
     //This is for safety.  Removing it might make this too hard for students...
     //So, I'll comment it out.  We need to then do checks for admin shit then
-/*    if ($_POST['pass'] != $info['password']) 
+    if ($_POST['pass'] != $info['password']) 
     {
       //this is a simple check for making sure that the password from the db
       //is the same as the password that we get
       //preventing simple manual sqli.  make sure that they use tools! >:)
-      die('Incorrect password, please try again.');
+      die('Nice Try. It's not that easy though >:)');
     }
-*/
+
     if(!(1==1))
     {
 	die('lolhax');
