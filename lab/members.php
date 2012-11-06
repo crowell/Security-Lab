@@ -2,9 +2,19 @@
 
  // Connects to your Database 
 
- mysql_connect("127.0.0.1", "root", "toor") or die(mysql_error()); 
+// mysql_connect("127.0.0.1", "root", "toor") or die(mysql_error()); 
+ //mysql_select_db("securelab") or die(mysql_error()); 
 
- mysql_select_db("securelab") or die(mysql_error()); 
+#Connect to AppFog MYSQL service
+$services_json = json_decode(getenv("VCAP_SERVICES"),true);
+$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
+$username = $mysql_config["username"];
+$password = $mysql_config["password"];
+$hostname = $mysql_config["hostname"];
+$port = $mysql_config["port"];
+$db = $mysql_config["name"];
+$link = mysql_connect("$hostname:$port", $username, $password);
+$db_selected = mysql_select_db($db, $link);
 
  //checks cookies to make sure they are logged in 
 

@@ -1,11 +1,30 @@
  <?php 
- // Connects to your Database 
+// Connects to your Database 
+//mysql_connect("127.0.0.1", "root", "toor") or die(mysql_error());
+//mysql_select_db("securelab") or die(mysql_error());
+
  #allow registration
  $reg_closed = false;
 
- mysql_connect("127.0.0.1", "root", "toor") or die(mysql_error()); 
- mysql_select_db("securelab") or die(mysql_error()); 
+#connect to AppFog MYSQL DB
+$services_json = json_decode(getenv("VCAP_SERVICES"),true);
+$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
+$username = $mysql_config["username"];
+$password = $mysql_config["password"];
+$hostname = $mysql_config["hostname"];
+$port = $mysql_config["port"];
+$db = $mysql_config["name"];
+$link = mysql_connect("$hostname:$port", $username, $password);
+$db_selected = mysql_select_db($db, $link);
 
+$result=mysql_query("SELECT * FROM users");
+if (!$result) {
+	mysql_query("CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(60), password VARCHAR(60))");
+}
+
+ #mysql_connect("127.0.0.1", "root", "toor") or die(mysql_error()); 
+ #mysql_select_db("securelab") or die(mysql_error()); 
+ 
  //This code runs if the form has been submitted
  if (isset($_POST['submit'])) 
  { 
