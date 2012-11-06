@@ -78,7 +78,7 @@ if(mysql_num_rows($check) == 0)
       //this is a simple check for making sure that the password from the db
       //is the same as the password that we get
       //preventing simple manual sqli.  make sure that they use tools! >:)
-      die('Nice Try. It's not that easy though >:)');
+      die('Nice Try. It\'s not that easy though >:)');
     }
 
     if(!(1==1))
