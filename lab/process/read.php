@@ -30,15 +30,9 @@ if(!$services_json) {
     	$link = mysql_connect("$hostname:$port", $username, $password);
     	$db_selected = mysql_select_db($db, $link);
 	
-	$posts = array();
-	
-
+	$posts = array();	
 	$contents = mysql_query("SELECT * FROM shout");
 	if($contents) {
-		$posts[] = array('postingUser' => mysql_num_rows($contents),
-                                'postingTime' => "F U",
-                                'postedMessage' => "F THIS");
-
 		while($line = mysql_fetch_array($contents)) {
 		   	$parts = explode(',', $line['line']);
 		        // Check to see if the line was more than a single element.
@@ -48,11 +42,7 @@ if(!$services_json) {
 	                	'postedMessage' => $parts[2]);
 	      		}
 		}	
-	} else {
-		$posts[] = array('postingUser' => "You REALLY wrong",
-                                'postingTime' => "F U",
-                                'postedMessage' => "F THIS");
-	}
+	} 
 }
 
 // If the file does not exits then there is no need to break up any information
