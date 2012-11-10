@@ -18,7 +18,6 @@ if(!$services_json) {
     	$link = mysql_connect("$hostname:$port", $username, $password);
     	$db_selected = mysql_select_db($db, $link);
 	
-	$posts = array();	
 	$contents = mysql_query("SELECT * FROM shout");
 	$lines=array();
 	if($contents) {
