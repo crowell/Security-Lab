@@ -9,7 +9,7 @@ if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 	$lines = explode("\n", $contents);
 	$posts = array();
-	$posts[] = array('postingUser' => "You wrong",
+	$posts[0] = array('postingUser' => "You wrong",
                                 'postingTime' => "F U",
                                 'postedMessage' => "F THIS");
 } else {
