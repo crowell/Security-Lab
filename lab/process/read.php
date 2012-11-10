@@ -8,18 +8,6 @@ $services_json = json_decode(getenv("VCAP_SERVICES"),true);
 if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 	$lines = explode("\n", $contents);
-//	if (!empty($contents)) {
-//		$posts = array();
-//		foreach ($lines as $line) {
-//			$parts = explode(',', $line);
-//			// Check to see if the line was more than a single element.
-//			if (count($parts) > 1) {
-//		        	$posts[] = array('postingUser' => $parts[0],
-//	        	        'postingTime' => date('m/d/Y H:m', $parts[1]),
-//	                	'postedMessage' => $parts[2]);
-  //      		}
-    //		}
-//	}
 } else {
     	$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
 	$username = $mysql_config["username"];
@@ -32,17 +20,10 @@ if(!$services_json) {
 	
 	$posts = array();	
 	$contents = mysql_query("SELECT * FROM shout");
+	$lines=array();
 	if($contents) {
-		$lines=array();
 		while($row = mysql_fetch_array($contents)) {
 			$lines[] = $row['line'];
-//		   	$parts = explode(',', $line['line']);
-//		        // Check to see if the line was more than a single element.
-//	        	if (count($parts) > 1) {
-//	            	$posts[] = array('postingUser' => $parts[0],
-//	                	'postingTime' => date('m/d/Y H:m', $parts[1]),
-//	                	'postedMessage' => $parts[2]);
-//	      		}
 		}	
 	} 
 }

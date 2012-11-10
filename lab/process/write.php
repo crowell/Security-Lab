@@ -25,7 +25,7 @@ if (isset($_POST['posting_user'])) {
 	$services_json = json_decode(getenv("VCAP_SERVICES"),true);
 	if(!$services_json) {	
 	        $fileHandle = fopen($dataFile, 'a');
-	        if (!fwrite($fileHandle, $line)) {
+	        if (!fwrite($fileHandle, $line."\n")) {
 	            $error = 'Could not write to file, try again.';
 	        }
         	fclose($fileHandle);
