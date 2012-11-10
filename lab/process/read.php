@@ -7,6 +7,7 @@
 
 
 $services_json = json_decode(getenv("VCAP_SERVICES"),true);
+$contents='';
 if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 } else {
@@ -26,7 +27,7 @@ if(!$services_json) {
 if (!empty($contents)) {
     //$lines = explode("\n", $contents);
 	
-	$lines = mysql_fetch_array($contents)
+    $lines = mysql_fetch_array($contents)
     $posts = array();
     foreach ($lines as $line) {
         $parts = explode(',', $line);
@@ -37,5 +38,18 @@ if (!empty($contents)) {
                 'postedMessage' => $parts[2]);
         }
     }
+} else {
+   $posts = array();
+	$line = "ben,".time().",hello";
+        $parts = explode(',', $line);
+        // Check to see if the line was more than a single element.
+        if (count($parts) > 1) {
+            $posts[] = array('postingUser' => $parts[0],
+                'postingTime' => date('m/d/Y H:m', $parts[1]),
+                'postedMessage' => $parts[2]);
+        }
+    
+  
+
 }
 
