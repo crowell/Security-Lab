@@ -20,7 +20,7 @@ if(!$services_json) {
         $link = mysql_connect("$hostname:$port", $username, $password);
         $db_selected = mysql_select_db($db, $link);
 	
-	$contents=mysql_query("SELECT * FROM shout")
+	$contents=mysql_query("SELECT line FROM shout")
 }
 
 // If the file does not exits then there is no need to break up any information
