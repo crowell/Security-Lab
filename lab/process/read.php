@@ -18,9 +18,8 @@ if(!services_json) {
     	$link = mysql_connect("$hostname:$port", $username, $password);
     	$db_selected = mysql_select_db($db, $link);
 	
-	$contents = mysql_query("SELECT * FROM shout");
-	$lines = mysql_fetch_array($contents, MYSQL_NUM) ;
-
+	$contents = mysql_query("SELECT line FROM shout");
+	$lines = mysql_fetch_array($contents) ;
 }
 
 // If the file does not exits then there is no need to break up any information
