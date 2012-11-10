@@ -48,7 +48,7 @@ if (isset($_POST['posting_user'])) {
 	}
 
         // Delete post data so that fields do no populate again
-        $m = unset($_POST);
+        unset($_POST);
     } else {
         $error = 'Username and message are required!';
     }
