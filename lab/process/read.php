@@ -19,23 +19,32 @@ if(!services_json) {
     	$db_selected = mysql_select_db($db, $link);
 	
 	$contents = mysql_query("SELECT line FROM shout");
-	$lines = array();
-	while($row = mysql_fetch_array($contents))
-	  $lines[] = $row;
+	if(!$contents) {
+		$posts = array();
+		while($line = mysql_fetch_array($contents)) {
+		   	$parts = explode(',', $line);
+		        // Check to see if the line was more than a single element.
+	        	if (count($parts) > 1) {
+	            	$posts[] = array('postingUser' => $parts[0],
+	                	'postingTime' => date('m/d/Y H:m', $parts[1]),
+	                	'postedMessage' => $parts[2]);
+        		}
+		}	
+	}
 }
 
 // If the file does not exits then there is no need to break up any information
-if (!empty($contents)) {
+//if (!empty($contents)) {
 
-    $posts = array();
-    foreach ($lines as $line) {
-        $parts = explode(',', $line);
+//    $posts = array();
+//    foreach ($lines as $line) {
+//        $parts = explode(',', $line);
         // Check to see if the line was more than a single element.
-        if (count($parts) > 1) {
-            $posts[] = array('postingUser' => $parts[0],
-                'postingTime' => date('m/d/Y H:m', $parts[1]),
-                'postedMessage' => $parts[2]);
-        }
-    }
-}
+//        if (count($parts) > 1) {
+//            $posts[] = array('postingUser' => $parts[0],
+//                'postingTime' => date('m/d/Y H:m', $parts[1]),
+//                'postedMessage' => $parts[2]);
+//        }
+//    }
+//}
 
