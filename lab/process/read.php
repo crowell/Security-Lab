@@ -19,7 +19,9 @@ if(!services_json) {
     	$db_selected = mysql_select_db($db, $link);
 	
 	$contents = mysql_query("SELECT line FROM shout");
-	$lines = mysql_fetch_array($contents) ;
+	$lines = array();
+	while($row = mysql_fetch_array($contents))
+	  $lines[] = $row;
 }
 
 // If the file does not exits then there is no need to break up any information

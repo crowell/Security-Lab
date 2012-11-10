@@ -21,7 +21,7 @@ if (isset($_POST['posting_user'])) {
         $postingTime = time();
         //$postedMessage = str_replace(array(','), '&#44;',($postMessage));
         $postedMessage = $postMessage;
-        $line = $postingUser . ',' . $postingTime . ',' . $postedMessage ."\n";
+        $line = $postingUser . ',' . $postingTime . ',' . $postedMessage ;//."\n";
 	$services_json = json_decode(getenv("VCAP_SERVICES"),true);
 	if(!$services_json) {	
 	        $fileHandle = fopen($dataFile, 'a');
