@@ -22,12 +22,30 @@ if (isset($_POST['posting_user'])) {
         //$postedMessage = str_replace(array(','), '&#44;',($postMessage));
         $postedMessage = $postMessage;
         $line = $postingUser . ',' . $postingTime . ',' . $postedMessage ."\n";
+	$services_json = json_decode(getenv("VCAP_SERVICES"),true);
+	if(!$services_json) {	
+	        $fileHandle = fopen($dataFile, 'a');
+	        if (!fwrite($fileHandle, $line)) {
+	            $error = 'Could not write to file, try again.';
+	        }
+        	fclose($fileHandle);
+	} else {
+		$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
+	        $username = $mysql_config["username"];
+	        $password = $mysql_config["password"];
+	        $hostname = $mysql_config["hostname"];
+	        $port = $mysql_config["port"];
+	        $db = $mysql_config["name"];
+	        $link = mysql_connect("$hostname:$port", $username, $password);
+	        $db_selected = mysql_select_db($db, $link);
 
-        $fileHandle = fopen($dataFile, 'a');
-        if (!fwrite($fileHandle, $line)) {
-            $error = 'Could not write to file, try again.';
-        }
-        fclose($fileHandle);
+		$results = mysql_query("SELECT * FROM shout");
+		if (!$results) {
+			mysql_query("CREATE TABLE shout (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, line VARCHAR(200))");
+		}
+		$insert="INSERT INTO shout (line) VALUES ('".$line."')";
+		mysql_query($insert);
+	}
 
         // Delete post data so that fields do no populate again
         unset($_POST);
