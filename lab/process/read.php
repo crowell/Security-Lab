@@ -39,16 +39,16 @@ if(!$services_json) {
                                 'postingTime' => "F U",
                                 'postedMessage' => "F THIS");
 
-//		$posts = array();
-//		while($line = mysql_fetch_array($contents)) {
-//		   	$parts = explode(',', $line['line']);
+		$posts = array();
+		while($line = mysql_fetch_array($contents)) {
+		   	$parts = explode(',', $line['line']);
 		        // Check to see if the line was more than a single element.
-//	        	if (count($parts) > 1) {
-//	            	$posts[] = array('postingUser' => $parts[0],
-//	                	'postingTime' => date('m/d/Y H:m', $parts[1]),
-//	                	'postedMessage' => $parts[2]);
-  //      		}
-//		}	
+	        	if (count($parts) > 1) {
+	            	$posts[] = array('postingUser' => $parts[0],
+	                	'postingTime' => date('m/d/Y H:m', $parts[1]),
+	                	'postedMessage' => $parts[2]);
+	      		}
+		}	
 	} else {
 		$posts[] = array('postingUser' => "You REALLY wrong",
                                 'postingTime' => "F U",
