@@ -3,7 +3,8 @@
 /*
  * Read the data stored in $dataFile if it exists!
  */
-$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
+
+$contents=mysql_query("SELECT * FROM shout")
 
 // If the file does not exits then there is no need to break up any information
 if (!empty($contents)) {
