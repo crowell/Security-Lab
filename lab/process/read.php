@@ -39,7 +39,6 @@ if(!$services_json) {
                                 'postingTime' => "F U",
                                 'postedMessage' => "F THIS");
 
-		$posts = array();
 		while($line = mysql_fetch_array($contents)) {
 		   	$parts = explode(',', $line['line']);
 		        // Check to see if the line was more than a single element.
