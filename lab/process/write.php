@@ -44,7 +44,7 @@ if (isset($_POST['posting_user'])) {
 			mysql_query("CREATE TABLE shout (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, line VARCHAR(200))");
 		}
 		$insert="INSERT INTO shout (line) VALUES ('".mysql_real_escape_string($line)."')";
-		$error = mysql_query($insert); 
+		mysql_query($insert); 
 	}
 
         // Delete post data so that fields do no populate again
