@@ -18,11 +18,11 @@ if(!services_json) {
     	$link = mysql_connect("$hostname:$port", $username, $password);
     	$db_selected = mysql_select_db($db, $link);
 	
-	$contents = mysql_query("SELECT line FROM shout");
+	$contents = mysql_query("SELECT * FROM shout");
 	if(!$contents) {
 		$posts = array();
 		while($line = mysql_fetch_array($contents)) {
-		   	$parts = explode(',', $line);
+		   	$parts = explode(',', $line['line']);
 		        // Check to see if the line was more than a single element.
 	        	if (count($parts) > 1) {
 	            	$posts[] = array('postingUser' => $parts[0],
