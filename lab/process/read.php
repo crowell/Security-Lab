@@ -24,8 +24,9 @@ if(!$services_json) {
 
 // If the file does not exits then there is no need to break up any information
 if (!empty($contents)) {
-    $lines = explode("\n", $contents);
-
+    //$lines = explode("\n", $contents);
+	
+	$lines = mysql_fetch_array($contents)
     $posts = array();
     foreach ($lines as $line) {
         $parts = explode(',', $line);
