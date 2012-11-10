@@ -33,7 +33,7 @@ if(!$services_json) {
 	$posts = array();
 	
 
-	$contents = mysql_query("SELECT * FROM shout");
+	$contents = mysql_query("SELECT line FROM shout");
 	if(!$contents) {
 		$posts[] = array('postingUser' => "You righter",
                                 'postingTime' => "F U",
