@@ -5,7 +5,7 @@
  */
 
 $services_json = json_decode(getenv("VCAP_SERVICES"),true);
-if(!services_json) {
+if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 	$lines = explode("\n", $contents);
 } else {
