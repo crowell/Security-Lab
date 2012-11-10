@@ -31,13 +31,14 @@ if(!$services_json) {
     	$db_selected = mysql_select_db($db, $link);
 	
 	$posts = array();
-        $posts[] = array('postingUser' => "You REALLY wrong",
-                                'postingTime' => "F U",
-                                'postedMessage' => "F THIS");
 	
 
 	$contents = mysql_query("SELECT * FROM shout");
 	if(!$contents) {
+		$posts[] = array('postingUser' => "You righter",
+                                'postingTime' => "F U",
+                                'postedMessage' => "F THIS");
+
 //		$posts = array();
 //		while($line = mysql_fetch_array($contents)) {
 //		   	$parts = explode(',', $line['line']);
@@ -49,7 +50,9 @@ if(!$services_json) {
   //      		}
 //		}	
 	} else {
-
+		$posts[] = array('postingUser' => "You REALLY wrong",
+                                'postingTime' => "F U",
+                                'postedMessage' => "F THIS");
 	}
 }
 
