@@ -23,7 +23,7 @@ require_once './process/read.php';
         ?>
         <div id="listing">
             <?php
-            if (!empty($contents)) {
+            if (!$contents) {
                 foreach ($posts as $post):
                     ?>
                     <p class="post">
