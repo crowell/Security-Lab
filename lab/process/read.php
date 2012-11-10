@@ -8,6 +8,10 @@ $services_json = json_decode(getenv("VCAP_SERVICES"),true);
 if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 	$lines = explode("\n", $contents);
+	$posts = array();
+	$posts[] = array('postingUser' => "You wrong",
+                                'postingTime' => "F U",
+                                'postedMessage' => "F THIS");
 } else {
     	$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
 	$username = $mysql_config["username"];
