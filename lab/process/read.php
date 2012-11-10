@@ -4,7 +4,23 @@
  * Read the data stored in $dataFile if it exists!
  */
 
-$contents=mysql_query("SELECT * FROM shout")
+
+
+$services_json = json_decode(getenv("VCAP_SERVICES"),true);
+if(!$services_json) {
+	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
+} else {
+	$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
+        $username = $mysql_config["username"];
+        $password = $mysql_config["password"];
+        $hostname = $mysql_config["hostname"];
+        $port = $mysql_config["port"];
+        $db = $mysql_config["name"];
+        $link = mysql_connect("$hostname:$port", $username, $password);
+        $db_selected = mysql_select_db($db, $link);
+	
+	$contents=mysql_query("SELECT * FROM shout")
+}
 
 // If the file does not exits then there is no need to break up any information
 if (!empty($contents)) {
