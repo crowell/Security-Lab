@@ -43,11 +43,10 @@ if (isset($_POST['posting_user'])) {
 
 		$result=mysql_query("SELECT * FROM shout");
 		if (!$result) {
-			mysql_query("CREATE TABLE shout (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, line VARCHAR(200))");
+			mysql_query("CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, line VARCHAR(200))");
 		}
 		
 		$insert = "INSERT INTO shout (line) VALUES('".$line."')";
-		mysql_query($insert);
 	}
 	
 	
