@@ -8,10 +8,18 @@ $services_json = json_decode(getenv("VCAP_SERVICES"),true);
 if(!$services_json) {
 	$contents = file_exists($dataFile) ? file_get_contents($dataFile) : '';
 	$lines = explode("\n", $contents);
-	$posts = array();
-	$posts[0] = array('postingUser' => "You wrong",
-                                'postingTime' => "F U",
-                                'postedMessage' => "F THIS");
+	if (!empty($contents)) {
+		$posts = array();
+		foreach ($lines as $line) {
+			$parts = explode(',', $line);
+			// Check to see if the line was more than a single element.
+			if (count($parts) > 1) {
+		        	$posts[] = array('postingUser' => $parts[0],
+	        	        'postingTime' => date('m/d/Y H:m', $parts[1]),
+	                	'postedMessage' => $parts[2]);
+        		}
+    		}
+	}
 } else {
     	$mysql_config = $services_json["mysql-5.1"][0]["credentials"];
 	$username = $mysql_config["username"];
@@ -22,14 +30,14 @@ if(!$services_json) {
     	$link = mysql_connect("$hostname:$port", $username, $password);
     	$db_selected = mysql_select_db($db, $link);
 	
-	 $posts = array();
-        $posts[0] = array('postingUser' => "You REALLY wrong",
+	$posts = array();
+        $posts[] = array('postingUser' => "You REALLY wrong",
                                 'postingTime' => "F U",
                                 'postedMessage' => "F THIS");
 	
 
-//	$contents = mysql_query("SELECT * FROM shout");
-//	if(!$contents) {
+	$contents = mysql_query("SELECT * FROM shout");
+	if(!$contents) {
 //		$posts = array();
 //		while($line = mysql_fetch_array($contents)) {
 //		   	$parts = explode(',', $line['line']);
@@ -40,7 +48,9 @@ if(!$services_json) {
 //	                	'postedMessage' => $parts[2]);
   //      		}
 //		}	
-//	}
+	} else {
+
+	}
 }
 
 // If the file does not exits then there is no need to break up any information
