@@ -5,13 +5,12 @@ Contains a single class, FileUpload, which is used to upload files to a given di
 when using basic python CGI
 """
 
-from os import listdir, remove, rename
+from os import listdir, remove, rename, path
 import datetime
+import string
 
 class FileUpload(object):
 	"""Upload, delete, and query files uploaded to files directory"""
-
-	MAXFILES = 10
 
 	def __init__(self, direct, ln):
 		""" Instantiation, takes two arguments
@@ -22,21 +21,29 @@ class FileUpload(object):
 		super(FileUpload, self).__init__()
 		self.directory = string.rstrip(direct, '/') # strip end slash if it exists
 		self.filelist = ln  
+		self.MAXFILES = 10;
 
-	def upload(fileitem):
+	def upload(self, fileitem):
 		""" Uploads a file and saves name and timestamps
 
 		fileitem - the file item returned from CGI script uploads
 		"""
 		# First check to see if max files has been reached, and if so, delete oldest
 		files = self.query()
-		if (len(files) >= MAXFILES):
+		if (len(files) >= self.MAXFILES):
 			self.delete()
+
+		# Then check to see if the file exists already
+		for ii, file in enumerate(files):
+			if fileitem.filename == file[0]:
+				# We have to remove this file from the list in order to properly reload it
+				# Note that we dont have to delete the file since it will be overwritten
+				self.removeFileAtIndex(ii)
 
 		# Save the new file into the directory and filelist
 		fileContents = fileitem.file.read()
-		filename = os.path.basename(fileitem.filename)
-		h = open(self.directory + '/' + filename, 'wb')
+		filename = path.basename(fileitem.filename)
+		h = open(self.directory + '/' + filename, 'w')
 		h.write(fileContents)
 		h.close()
 
@@ -44,44 +51,55 @@ class FileUpload(object):
 		self.addToList(filename)
 
 
-	def delete():
+	def delete(self):
 		""" Deletes the top most file in filelist from the directory 
 
 		Also removes the file from the filelist.  This makes the filelist txt file operate very similarly
 		to a permanent stored queue
 		"""
 		files = self.query()
-		if len(files) not 0:
-			os.remove(self.directory + '/' + files[0][0]) # Remove topmost file
-			self.removeTop()
+		if len(files) != 0:
+			remove(self.directory + '/' + files[0][0]) # Remove topmost file
+			self.removeFileAtIndex(0)
 
 
-	def query():
+	def query(self):
 		""" Query the filelist and return all files and timestamps in a list"""
-		with open(self.filelist, 'r') as list:
-			lines = list.readlines();
-			for line in lines:
-				line.split('\t')
+		filelist = []
+		try:
+			with open(self.filelist, 'r') as list:
+				lines = list.readlines();
+				for line in lines:
+					filelist.append(line.split('\t'))
+		except IOError:
+			# File does not exist, so create it and return an empty list
+			filelist = []
 
-		return lines
+		return filelist
 
 
-	def addToList(filename):
+	def addToList(self, filename):
 		""" Adds filename into the filelist and gives a timestamp """
-		with open(self.filelist, 'a') as list:
+		with open(self.filelist, 'a+') as list:
 			time = datetime.datetime.now()
 
-			list.write(filename + "\t" + time)
+			list.write(filename + "	" + str(time) + "\n")
 
-	def removeTop():
+	def removeFileAtIndex(self, index):
 		""" Removes top file from filelist """
-		with open(self.filelist, 'rw') as inp:
-			with open(self.filelist+'_NEW', 'rw') as out:
-				original = inp.readlines()
-				new = original[1:]
-				out.writelines(new)
+		try:
+			with open(self.filelist, 'rw') as inp:
+				with open(self.filelist+'_NEW', 'w') as out:
+					lines = inp.readlines();
+					for ii, line in enumerate(lines):
+						if ii != index:
+							# Only copy line if it is not being removed
+							out.writelines(line)
+			remove(self.filelist)
+			rename(self.filelist+'_NEW', self.filelist)
+		except IOError:
+			# Empty file, so just leave it be
+			print "No files found"
 
-		os.remove(self.filelist)
-		os.rename(self.filelist+'_NEW', self.filelist)
 
 

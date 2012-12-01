@@ -1,17 +1,19 @@
+#!/usr/bin/python2.6
+
 # This is the web page for "developers" to upload new webpages to include in the web site
 # Our web administrator is tyrannical and likes to add things himself, so he tells everyone
 # to upload onto this page
 
 import cgi
 import cgitb
-import upload
-from os import listdir
+from upload import FileUpload
+from os import path
 
 cgitb.enable() # For now
 
 # This file stores the name and timestamp of uploaded files
 uploadsDir = "/var/www/hidden/files"
-uploadsFile = "/var/www/hidden/uploaded.txt"
+uploadsFile = "/var/www/hidden/files/uploaded.txt"
 
 # Get the CGI info for the current file
 form = cgi.FieldStorage()
@@ -38,7 +40,7 @@ which they were uploaded.  Keep in mind we only keep 10 files stored at a given 
 
 <!-- The file upload segment -->
 
-<form enctype="multipart/form-data" action="save_file.py" method="post">
+<form enctype="multipart/form-data" action="developers.py" method="post">
 	<p>File: <input type="file" name="file"></p>
 	<p><input type="submit" value="Upload"></p>
 </form>
@@ -49,19 +51,21 @@ which they were uploaded.  Keep in mind we only keep 10 files stored at a given 
 if "file" in form:
 	# Check that the file was properly uploaded
 	uploadedFile = form["file"]
-	if uploadedFile.filename:
-		name = os.path.basename(uploadedFile.filename)
-		print name # Just some debug info
+	if uploadedFile.filename:  # File exists
 		# Upload the file
-		uploader.upload(name)
-		print "<h2> Thanks for submitting {0}! <h2><br>".format(name)
+		uploader.upload(uploadedFile)
+		print "<h2> Thanks for submitting {0}! </h2><br>".format(uploadedFile.filename)
 	else:
 		print "<h2> Error uploading file!"
 
-print "<table>"
+	print "<hr noshade size = 3>"
 
+
+print "<h3> Current Files </h3>"
+print "<table border=1>"
 # Here, I fill in the files which already exist in the file directory
-for file in uploader.query():
+savedFiles = uploader.query()
+for file in savedFiles:
 	# Each line has two parts, the file name and the timestamp, so print all of the files out here
 	name = file[0]
 	time = file[1]
@@ -69,8 +73,10 @@ for file in uploader.query():
 
 print """
 </table>
-
+<br>
+<br>
 <footer>
+	<hr noshade size = 3>
 	<p>Created by: The SUPER SECURITY team</p>
-	<p><time pubdate datetime="2012-11-24"></time></p>
 </footer>
+"""
