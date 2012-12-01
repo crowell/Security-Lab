@@ -1,0 +1,12 @@
+# Add this to end of apache2.conf
+
+# Allow execution of cgi in the hidden directory
+<Directory "/var/www/hidden">
+    Options Indexes FollowSymLinks ExecCGI
+    AddHandler cgi-script .py .cgi
+
+    AllowOverride None
+
+    Order allow,deny
+    Allow from all
+</Directory>

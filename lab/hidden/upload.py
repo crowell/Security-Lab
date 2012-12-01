@@ -5,7 +5,7 @@ Contains a single class, FileUpload, which is used to upload files to a given di
 when using basic python CGI
 """
 
-from os import listdir, remove, rename, path
+from os import listdir, remove, rename, path, chmod
 import datetime
 import string
 
@@ -44,8 +44,9 @@ class FileUpload(object):
 		fileContents = fileitem.file.read()
 		filename = path.basename(fileitem.filename)
 		h = open(self.directory + '/' + filename, 'w')
+		chmod(self.directory + "/" + fileitem.filename, 0777);
 		h.write(fileContents)
-		h.close()
+		h.close()		
 
 		# Save a filename and timestamp to the file
 		self.addToList(filename)
