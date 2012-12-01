@@ -10,3 +10,15 @@
     Order allow,deny
     Allow from all
 </Directory>
+
+
+<Directory "/var/www/hidden/files">
+    Options Indexes FollowSymLinks ExecCGI
+    AddHandler cgi-script .py .pyc .cgi
+
+    AllowOverride None
+
+    Order allow,deny
+    Allow from all
+</Directory>
+
