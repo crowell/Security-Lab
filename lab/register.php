@@ -1,7 +1,7 @@
  <?php 
 
  #allow registration
- $reg_closed = false;
+ $reg_closed = true;
 
 #check if we are running on AppFog with a MySQL service
 $services_json = json_decode(getenv("VCAP_SERVICES"),true);
