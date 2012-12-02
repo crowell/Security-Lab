@@ -6,8 +6,9 @@
 
 import cgi
 import cgitb
+import Cookie
 from upload import FileUpload
-from os import path
+from os import path, load
 
 cgitb.enable() # For now
 
