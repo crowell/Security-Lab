@@ -6,16 +6,17 @@ import cgi
 import os
 import cgitb
 import Cookie
+import datetime
+import random
 cgitb.enable()
 
-# My different possible pages
+# My different possible page
 def redirect():
-	print "Status: 301 moved"
+	print "Status: 301"
 	print "Location: developers.py"
+	print "Content-Type: text/html\n"
 
 def printPage(attempt):
-	print "Content-type: text/html\n"
-
 	print """
 <html>
 <h1>Developer Page Login</h1>
@@ -32,7 +33,7 @@ def printPage(attempt):
 			<input type="text" name="username" maxlength="40"> 
 			</td></tr> 
 			<tr><td>Password:</td><td> 
-			<input type="password" name="pass" maxlength="50"> 
+			<input type="password" name="password" maxlength="50"> 
 			</td></tr> 
 			<tr><td colspan="2" align="right"> 
 			<input type="submit" name="submit" value="Login"> 
@@ -59,36 +60,39 @@ except:
 	cookie = Cookie.SimpleCookie()
 
 # First try to update the cookies
-print cookie
 try:
 	oldCookie = []
 	oldCookie.append(cookie['username'].value)
 	oldCookie.append(cookie['password'].value)
 	if 'username' in form:
 		# Form was submitted 
-		cookie['username'] = form['username']
-		cookie['password'] = form['password']
+		cookie['username'] = form['username'].value
+		cookie['password'] = form['password'].value
 	else:
 		# No submission, or messed up submission
 		cookie['username'] = oldCookie[0]
 		cookie['password'] = oldCookie[1]
 except:
 	# No previous values
-	cookie['username'] = None
-	cookie['password'] = None
+	cookie['username'] = ""
+	cookie['password'] = ""
 
+#update cookie expiration date
+expirationDate = datetime.datetime.now() + datetime.timedelta(hours = 24)
+cookie['username']['expires'] = expirationDate.strftime('%a, %d %b %Y %H:%M:%S')
+cookie['whoami'] = "Login Credentials"
+
+# Finally, print the cookie
 print cookie
-
-# Now, see what's in the cookie, that will decide which page to go to
-print cookie['username']
-if cookie['username'] != None:
-	# I hard code the username here
-	if cookie['username'] == "admin" and cookie['password'] == "letmein":
-		# redirect to the developers page
-		redirect()
-	else:
+if cookie['username'].value == "admin" and cookie['password'].value == "letmein":
+	# redirect to the developers page
+	redirect()
+else:
+	print "Content-Type: text/html\n"
+	# Now, see what's in the cookie, that will decide which page to go to
+	if cookie['username'].value != "":
 		# Print this page with a fail login message
 		printPage(True)
-else:
-	# Print the page normally
-	printPage(False)
+	else:
+		# Print the page normally
+		printPage(False)
