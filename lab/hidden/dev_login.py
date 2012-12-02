@@ -77,7 +77,8 @@ except:
 	cookie['password'] = None
 
 # Now, see what's in the cookie, that will decide which page to go to
-if cookie['username'] not None:
+print cookie['username']
+if cookie['username'] != None:
 	# I hard code the username here
 	if cookie['username'] == "admin" and cookie['password'] == "letmein":
 		# redirect to the developers page
