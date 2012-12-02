@@ -59,6 +59,7 @@ except:
 	cookie = Cookie.SimpleCookie()
 
 # First try to update the cookies
+print cookie
 try:
 	oldCookie = []
 	oldCookie.append(cookie['username'].value)
@@ -75,6 +76,8 @@ except:
 	# No previous values
 	cookie['username'] = None
 	cookie['password'] = None
+
+print cookie
 
 # Now, see what's in the cookie, that will decide which page to go to
 print cookie['username']
