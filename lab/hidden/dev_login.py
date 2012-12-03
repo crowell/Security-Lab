@@ -15,6 +15,7 @@ def redirect():
 	print "Status: 301"
 	print "Location: developers.py"
 	print "Content-Type: text/html\n"
+	print "Redirecting you to the developers page..."
 
 def printPage(attempt):
 	print """
