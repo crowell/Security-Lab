@@ -69,8 +69,10 @@ try:
 			uploadedFile = form["file"]
 			if uploadedFile.filename:  # File exists
 				# Upload the file
-				uploader.upload(uploadedFile)
-				print "<h2> Thanks for submitting {0}! </h2><br>".format(uploadedFile.filename)
+				if uploader.upload(uploadedFile) == -1:
+					print "<h2> Error: Can't upload this file.  Don't be sneaky!"
+				else:
+					print "<h2> Thanks for submitting {0}! </h2><br>".format(uploadedFile.filename)
 			else:
 				print "<h2> Error uploading file!"
 

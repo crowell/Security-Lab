@@ -28,17 +28,23 @@ class FileUpload(object):
 
 		fileitem - the file item returned from CGI script uploads
 		"""
-		# First check to see if max files has been reached, and if so, delete oldest
-		files = self.query()
-		if (len(files) >= self.MAXFILES):
-			self.delete()
 
-		# Then check to see if the file exists already
+		files = self.query()
+
+		# First check to see if the file exists already or they are trying to upload a bad file
 		for ii, file in enumerate(files):
 			if fileitem.filename == file[0]:
 				# We have to remove this file from the list in order to properly reload it
 				# Note that we dont have to delete the file since it will be overwritten
 				self.removeFileAtIndex(ii)
+
+			if fileitem.filename == "uploaded.txt":
+				# We do not want to let users alter the uploaded.txt file
+				return -1
+
+		# Then check to see if max files has been reached, and if so, delete oldest
+		if (len(files) >= self.MAXFILES):
+			self.delete()
 
 		# Save the new file into the directory and filelist
 		fileContents = fileitem.file.read()
@@ -50,6 +56,7 @@ class FileUpload(object):
 
 		# Save a filename and timestamp to the file
 		self.addToList(filename)
+		return 0
 
 
 	def delete(self):
@@ -85,6 +92,8 @@ class FileUpload(object):
 			time = datetime.datetime.now()
 
 			list.write(filename + "	" + str(time) + "\n")
+		# Make sure permissions are correct on uploaded.txt
+		chmod(self.filelist, 0777);
 
 	def removeFileAtIndex(self, index):
 		""" Removes top file from filelist """
