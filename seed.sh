@@ -7,7 +7,6 @@ $MYSQL -e "CREATE DATABASE securelab"
 $MYSQLD -e "CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(60), password VARCHAR(60));"
 $MYSQLD -e "INSERT INTO users (username, password) VALUES ('admin', '6ea27872aeabcec0a4d74697e1786225');"
 $MYSQLD -e "INSERT INTO users (username, password) VALUES ('James Bond', 'b5117cab4abf1b39ff9a03a3a3f2862c');"
-$MYSQLD -e "CREATE TABLE secrets (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, secret VARCHAR(200));"
 
 TABLES=(
 "products"
