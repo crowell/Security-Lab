@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Query Plugin</title>
+</head>
+
+<body>
+<h1>Search for Plugin</h1>
+<form action = "response.py"
+method = "get">
+<p> Type in the name of one of the plugins we mentioned in lab to learn more about it!</p>
+<p>Try XSS for example.</p>
+<input type = "text" name = "pluginName" />
+<input type = "submit" />
+</form>
+</body>
+</html>
+
