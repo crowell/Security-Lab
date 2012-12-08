@@ -24,3 +24,7 @@ echo_bold "Seeding the mysql database........."
 echo_bold "Starting apache2..........."
 service apache2 restart
 
+echo_bold "haxing boxes........"
+cat motd.txt /etc/motd
+
+echo_bold "ready!"

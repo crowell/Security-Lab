@@ -1,0 +1,5 @@
+Linux bt 3.2.6 #1 SMP Fri Feb 17 10:40:05 EST 2012 i686 GNU/Linux
+
+ System information disabled due to load higher than 1.0
+
+ Congratulations for getting onto the system, your flag is W4r3z
