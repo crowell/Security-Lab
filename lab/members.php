@@ -49,7 +49,7 @@ if(!$services_json) {
 		 		echo "<a href=shout.php>Shoutbox</a>"; 
 				if($username == "admin")
 				{
-					echo("<p>congrats, you're admin! flag{hack_th3_pl4n3t}");
+					echo("<p>congrats, you're admin! my favorite movie quote is \"hack_th3_pl4n3t\"");
 				}
 			} 
 		} 
