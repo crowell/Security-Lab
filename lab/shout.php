@@ -11,7 +11,7 @@ require_once './process/read.php';
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shout Box | Guest Book Simple Script</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/styles/styles.css">
     </head>
     <body>
