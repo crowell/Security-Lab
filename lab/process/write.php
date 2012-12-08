@@ -19,7 +19,7 @@ if (isset($_POST['posting_user'])) {
         }
 
         $postingTime = time();
-        //$postedMessage = str_replace(array(','), '&#44;',($postMessage));
+        $postedMessage = str_replace(array(','), '&#44;',($postMessage));
         $postedMessage = $postMessage;
         $line = $postingUser . ',' . $postingTime . ',' . $postedMessage ."\n";
 

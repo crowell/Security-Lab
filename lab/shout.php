@@ -22,23 +22,6 @@ require_once './process/read.php';
             <?php
         endif;
         ?>
-        <div id="listing">
-            <?php
-            if (!empty($contents)) {
-                foreach ($posts as $post):
-                    ?>
-                    <p class="post">
-                        <b><?php echo $post['postingUser']; ?> </b> 
-                        (@<?php echo $post['postingTime']; ?>)<br>
-                        <?php echo $post['postedMessage']; ?>
-                    </p>
-                    <?php
-                endforeach;
-            } else {
-                echo 'Nothing has been Posted. Be the first to post!';
-            }
-            ?>
-        </div>
         <div id="form">
             <form action="<?php echo basename(__FILE__); ?>" method="post">
                 <label for="posting_user">Username</label>
@@ -56,6 +39,24 @@ require_once './process/read.php';
                 <input type="submit" name="submit" value="Post!">
             </form>
         </div>
+        <div id="listing">
+            <?php
+            if (!empty($contents)) {
+                foreach ($posts as $post):
+                    ?>
+                    <p class="post">
+                        <b><?php echo $post['postingUser']; ?> </b> 
+                        (@<?php echo $post['postingTime']; ?>)<br>
+                        <?php echo $post['postedMessage']; ?>
+                    </p>
+                    <?php
+                endforeach;
+            } else {
+                echo 'Nothing has been Posted. Be the first to post!';
+            }
+            ?>
+        </div>
+
     </body>
 </html>
 
