@@ -5,8 +5,10 @@ MYSQLD="$MYSQL --database=securelab"
 $MYSQL -e "DROP DATABASE IF EXISTS securelab"
 $MYSQL -e "CREATE DATABASE securelab"
 $MYSQLD -e "CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(60), password VARCHAR(60));"
-$MYSQLD -e "INSERT INTO users (username, password) VALUES ('admin', '6ea27872aeabcec0a4d74697e1786225');"
+$MYSQLD -e "INSERT INTO users (username, password) VALUES ('admin', '3d86d1182128f237ee0b378a9b36b8a5');" #ec521thiscannotbecrackedbycrackstation
 $MYSQLD -e "INSERT INTO users (username, password) VALUES ('James Bond', 'b5117cab4abf1b39ff9a03a3a3f2862c');"
+$MYSQLD -e "INSERT INTO users (username, password) VALUES ('xss', '78a862bb04af562c9d28fb0f3d7e68e2');"
+
 
 TABLES=(
 "products"
