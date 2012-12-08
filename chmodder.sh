@@ -1,5 +1,7 @@
+cd /var/www
 # Chmod all of the hidden CGI files
 chmod 777 hidden/developers.py hidden/dev_login.py hidden/upload.py
+chmod 777 hidden/files
 
 # Make sure the files directory exists
 cd hidden/files
