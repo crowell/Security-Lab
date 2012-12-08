@@ -11,7 +11,7 @@ if (!empty($contents)) {
 
     $posts = array();
     foreach ($lines as $line) {
-        $parts = explode(',', $line);
+        $parts = explode(',,,,', $line);
         // Check to see if the line was more than a single element.
         if (count($parts) > 1) {
             $posts[] = array('postingUser' => $parts[0],
