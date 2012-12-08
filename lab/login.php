@@ -20,11 +20,11 @@ if(!$services_json) {
 
  //Checks if there is a login cookie
 
- if(isset($_COOKIE['ID_my_site']))
+ if(isset($_COOKIE['username']))
  //if there is, it logs you in and directes you to the members page
  { 
- 	$username = $_COOKIE['ID_my_site']; 
- 	$pass = md5($_COOKIE['Key_my_site']);
+ 	$username = $_COOKIE['username']; 
+ 	$pass = md5($_COOKIE['Secret_token']);
         $check = mysql_query("SELECT * FROM users WHERE username = '$username'")or die(mysql_error());
 	while($info = mysql_fetch_array( $check )) 	
  	{
@@ -102,10 +102,10 @@ if(mysql_num_rows($check) == 0)
 	$_POST['username'] = stripslashes($_POST['username']); 
 	$_POST['username'] = mysql_real_escape_string($_POST['username']); 
 	$hour = time() + 3600; 
-//	setcookie(ID_my_site, $info['username'], $hour); 
-	setcookie(ID_my_site, $_POST['username'], $hour); 
-//	setcookie(Key_my_site, $info['password'], $hour);	 
-	setcookie(Key_my_site, $noMD5, $hour);
+//	setcookie(username, $info['username'], $hour); 
+	setcookie(username, $_POST['username'], $hour); 
+//	setcookie(Secret_token, $info['password'], $hour);	 
+	setcookie(Secret_token, $noMD5, $hour);
 	 //then redirect them to the members area 
  	header("Location: members.php"); 
 
