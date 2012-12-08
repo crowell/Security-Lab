@@ -11,21 +11,27 @@ import random
 cgitb.enable()
 
 # My different possible page
-def redirect():
+def redirect(cookie):
+	print cookie
 	print "Status: 301"
 	print "Location: developers.py"
 	print "Content-Type: text/html\n"
-	print "Redirecting you to the developers page..."
 
-def printPage(attempt):
+def printFail(cookie):
+	cookie['username'] = ""
+	print cookie
+	print "Status: 403"
+	print "Content-Type: text/html\n"
+	print "<h1>403 Forbidden</h1>"
+
+def printPage(cookie):
+	print cookie
+	print "Content-Type: text/html\n"
 	print """
 <html>
 <h1>Developer Page Login</h1>
 <body>
 """
-	if attempt:
-		print "Login failed, try again<br>"
-
 	print """
 	<form action=dev_login.py method=post>
 		<table border="0"> 
@@ -44,8 +50,6 @@ def printPage(attempt):
 </body>
 </html>
 """
-
-
 
 
 ## MAIN PART OF PAGE ##
@@ -84,16 +88,14 @@ cookie['username']['expires'] = expirationDate.strftime('%a, %d %b %Y %H:%M:%S')
 cookie['whoami'] = "Login Credentials"
 
 # Finally, print the cookie
-print cookie
 if cookie['username'].value == "admin" and cookie['password'].value == "letmein":
 	# redirect to the developers page
-	redirect()
+	redirect(cookie)
 else:
-	print "Content-Type: text/html\n"
 	# Now, see what's in the cookie, that will decide which page to go to
 	if cookie['username'].value != "":
 		# Print this page with a fail login message
-		printPage(True)
+		printFail(cookie)
 	else:
 		# Print the page normally
-		printPage(False)
+		printPage(cookie)
