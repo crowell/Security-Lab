@@ -20,13 +20,13 @@ if(!$services_json) {
 
  //checks cookies to make sure they are logged in 
 
- if(isset($_COOKIE['username'])) 
+ if(isset($_COOKIE['ID_my_site'])) 
 
  { 
 
- 		$username = $_COOKIE['username']; 
+ 		$username = $_COOKIE['ID_my_site']; 
 
- 		$pass = md5($_COOKIE['Secret_Token']); 
+ 		$pass = md5($_COOKIE['Key_my_site']); 
 
  	 	$check = mysql_query("SELECT * FROM users WHERE username = '$username' AND password = '$pass'")or die(mysql_error()); 
 		if(mysql_num_rows($check) == 0)
