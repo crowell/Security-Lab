@@ -1,9 +1,11 @@
-first setup the mysql database with `CREATE TABLE users (ID MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(60), password VARCHAR(60)) `
+just run setup.sh, this script will do the following
 
-next, add some users.  edit the register.php to allow registration, then register some users.
+* set apache2 config
+* clear /var/www (even if you've got stuff there!)
+* change permissions of files in /var/www using `chmodder.sh`
+* start mysqld 
+* seed mysql using `seed.sh`
+* restart apache2
+* copy new motd
 
-make some users that have passwords that are common, and make admin something unguessable/totally random.
 
-turn back off registration.
-
-then you should be good to go!
