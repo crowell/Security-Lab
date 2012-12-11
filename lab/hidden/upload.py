@@ -94,6 +94,7 @@ class FileUpload(object):
 			list.write(filename + "	" + str(time) + "\n")
 		# Make sure permissions are correct on uploaded.txt
 		chmod(self.filelist, 0777);
+		
 
 	def removeFileAtIndex(self, index):
 		""" Removes top file from filelist """
