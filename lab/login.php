@@ -69,7 +69,14 @@ if(!$services_json) {
     die('That user does not exist in our database. <a href=index.php>Click Here to Register</a>');
  }
 
-$check = mysql_query("SELECT * FROM users WHERE username = '$uname' AND password = '$pword'") or die(mysql_error()); 
+$query = "SELECT * FROM users WHERE username = '$uname' AND password = '$pword'";
+if(stristr($query, "drop table") !== false) {
+	die('Nice Try');
+}
+if(stristr($query, "create table") !== false) {
+        die('Nice Try');
+}	
+$check = mysql_query($query) or die(mysql_error()); 
 if(mysql_num_rows($check) == 0)
 {
 	die('invalid password. <a href=login.php>Try again</a>');
