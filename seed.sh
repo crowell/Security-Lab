@@ -12,18 +12,6 @@ $MYSQLD -e "INSERT INTO users (username, password) VALUES ('xss', '78a862bb04af5
 
 TABLES=(
 "products"
-"admins"
-"offices"
-"executives"
-"secrets"
-"challenges"
-"labs"
-"hardware"
-"software"
-"devices"
-"vendors"
-"partners"
-"affiliates"
 "customers"
 "answers"
 "questions"
